@@ -38,10 +38,15 @@ export const checkAuth = (...authRoles: Role[]) => {
           const user = sessionExists.user;
 
           const now = new Date();
+
           const expiresAt = new Date(sessionExists.expiresAt);
+
           const createdAt = new Date(sessionExists.createdAt);
+
           const sessionLifeTime = expiresAt.getTime() - createdAt.getTime();
+
           const timeRemaining = expiresAt.getTime() - now.getTime();
+
           const percentRemainig = (timeRemaining / sessionLifeTime) * 100;
 
           if (percentRemainig < 20) {
@@ -72,8 +77,14 @@ export const checkAuth = (...authRoles: Role[]) => {
               'Forbidden access. You do not have permission to access this resource',
             );
           }
+          req.user = {
+            userId: user.id,
+            role: user.role,
+            email: user.email,
+          };
         }
       }
+
       const accessToken = cookieUtils.getCookie(req, 'ACCESS_TOKEN');
 
       if (!accessToken) {

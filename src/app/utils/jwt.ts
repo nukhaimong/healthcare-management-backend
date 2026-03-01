@@ -1,5 +1,4 @@
 import jwt, { JwtPayload, SignOptions } from 'jsonwebtoken';
-import { success } from 'zod';
 
 const createToken = (
   payload: JwtPayload,
