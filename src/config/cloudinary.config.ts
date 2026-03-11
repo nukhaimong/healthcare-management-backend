@@ -2,8 +2,6 @@ import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
 import { envVars } from './env';
 import AppError from '../app/errorHelpers/AppError';
 import status from 'http-status';
-import { file } from 'zod';
-import { error } from 'node:console';
 
 cloudinary.config({
   cloud_name: envVars.CLOUDINARY.COUDINARY_CLOUD_NAME,
@@ -15,7 +13,7 @@ export const uploadFileCloudinary = async (
   buffer: Buffer,
   fileName: string,
 ): Promise<UploadApiResponse> => {
-  if (buffer || fileName) {
+  if (!buffer || !fileName) {
     throw new AppError(
       status.BAD_REQUEST,
       'File buffer and filename are required to upload',
