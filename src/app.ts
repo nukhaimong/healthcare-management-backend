@@ -59,11 +59,6 @@ app.use(
 
 app.use('/api/v1/', indexRoutes);
 
-app.get('/', (req: Request, res: Response) => {
-  throw new AppError(status.BAD_REQUEST, 'testing custom error handler');
-  res.send('Hello World with TypeScript and Express!');
-});
-
 app.use(globalErrorHandler);
 app.use(notFound);
 
